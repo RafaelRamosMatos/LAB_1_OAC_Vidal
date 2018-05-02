@@ -19,7 +19,7 @@ mensagem:
     syscall         
     
 ##########################################################################################
-#PEDE PARA O USUARIO O QUE ELE DESEJA FAZER: COMPACTAR OU DESCOMP¡CTAR
+#PEDE PARA O USUARIO O QUE ELE DESEJA FAZER: COMPACTAR OU DESCOMP√ÅCTAR
     li $v0, 12          
     syscall      
     
@@ -91,7 +91,7 @@ rafael:
 ########################################################################################
 
 ############################################################################################
- la $t2, 0 #contador de endereÁo
+ la $t2, 0 #contador de endere√ßo
  loop_copia: # nesta parte ele atualiza onde a leitura foi interompida 
 			li $v0,14 #System call para ler ficheiro
 			move $a0,$t6
@@ -105,7 +105,7 @@ rafael:
 			j loop_copia
 			copiado:
 ###########################################################################################
-la $s7, 0 # ponteiro da fpilha (ponteiro do arquivo j· na memoria .data)
+la $s7, 0 # ponteiro da fpilha (ponteiro do arquivo j√° na memoria .data)
 leitura_do_arquivo:
 # esta funcao ler de ( ate ) entao e feita a leitura (n,char)
 		loopleitura:
@@ -118,20 +118,20 @@ leitura_do_arquivo:
 			move $s5, $s7
 			li $s6, 0
 ##########################################################################################
-# o $s7 vai ser o ponteiro que guarda o endereÁo de posicao de leitura 
+# o $s7 vai ser o ponteiro que guarda o endere√ßo de posicao de leitura 
 #FUNCAO PARA TRANSFOMAR CARACTERE EM INTERIO 	
 converte_char_int:
 li $t0,0	
 procura_virgula: # nesta funcao e iniciada um busca pela virgula na celula
 	lb $a1, fpilha($t5)
- 	beq $a1, ',', fim_virgula # a virgula È a condicao de parada 
+ 	beq $a1, ',', fim_virgula # a virgula √© a condicao de parada 
  	addi, $t5, $t5, 1
  	j procura_virgula
 fim_virgula:
 move $s0, $t5	
 ####################################################################################		
 procura_numero:	# nesta parte acontece a convercao
-	addi, $t5, $t5, -1 # a numero È lido da direita para esquerda para identificar a orden de grandeza  
+	addi, $t5, $t5, -1 # a numero √© lido da direita para esquerda para identificar a orden de grandeza  
  	lb $a1, fpilha($t5) # $a1 recebe o unumero em fomato de caractere 
  	beq $a1, '(', fim_soma
 	beq $a1, 48, zero
@@ -212,15 +212,15 @@ fim_soma:
 #VERIFICA SE O NUMERO LIDO E ZERO PARA ESCREVER O CARACTER DA CELULA NO ARQUIVO
 	move $t3, $v1
 	beqz $t3, procura_caractere
-	j empilha # caso n„o seja zero sera empilhado 
+	j empilha # caso n√£o seja zero sera empilhado 
 #######################################################################################
-empilha_celula:  #funcao que empilha que n„o tem zero 
+empilha_celula:  #funcao que empilha que n√£o tem zero 
 			#preparando o formato da pilha  
 			bnez $s6 pula_1
 			move $s6, $s7  
 			pula_1:   
 			addi $sp, $sp, -8 # pilha com 8 bytes 
-		       	sw   $ra, 4($sp) # primeiro elemento da pilha È o endereco com 4 bytes 
+		       	sw   $ra, 4($sp) # primeiro elemento da pilha √© o endereco com 4 bytes 
        
 	empilha_char: # inicio da empilhagem  dos caracteres 
 		
@@ -243,9 +243,9 @@ procura_caractere: # preparando para escrever no arquivo de saida
 escreve: #ecreve no arquivo de saida 
             		
             loop_escrita:
- 			li   $v0, 15       # system call para escrever no arquivo 
+ 			li   $v0, 15       # system call para escrever no arquivo
                         move $a0, $t7  
-                        la $a1, fpilha($s5)   # file descriptor 			  # address of buffer from which to write
+                        la $a1, fpilha($s5)  			 
                         li   $a2,1    
                         syscall 
                  move $t5, $s7
@@ -289,9 +289,9 @@ leitura_arquivo_busca:
 ############################################################################################
 empilha:
 	jal empilha_celula
-	# neste linha  fica o  endereÁo do primeiro  $ra
+	# neste linha  fica o  endere√ßo do primeiro  $ra
 desempilha:
-	beq $sp, 2147479548, loopleitura # pilha vazia È reprezendado pelo valor de $sp igual a 2147479548 
+	beq $sp, 2147479548, loopleitura # pilha vazia √© reprezendado pelo valor de $sp igual a 2147479548 
 	addi $sp, $sp, 1	
 pega_letra: 
 	li   $v0, 15       # system call para escrever no arquivo 
