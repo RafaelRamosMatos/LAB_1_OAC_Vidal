@@ -1,2 +1,2 @@
-# LAB_1_OAC_Vidal
-Descompactador de arquivo LZ78
+# Compactador e descompactador usando o algoritimo LZ78
+Este  software foi implementado para testes de funcionalidade em um procesador MIPS32.
